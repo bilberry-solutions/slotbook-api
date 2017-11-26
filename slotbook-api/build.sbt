@@ -7,17 +7,17 @@ scalaVersion in ThisBuild := "2.11.8"
 val macwire = "com.softwaremill.macwire" %% "macros" % "2.2.5" % "provided"
 val scalaTest = "org.scalatest" %% "scalatest" % "3.0.1" % Test
 
-lazy val `slotbook-api` = (project in file("."))
-  .aggregate(`slotbook-api-api`, `slotbook-api-impl`, `slotbook-api-stream-api`, `slotbook-api-stream-impl`)
+lazy val `slotbook` = (project in file("."))
+  .aggregate(`api`, `impl`, `stream-api`, `stream-impl`)
 
-lazy val `slotbook-api-api` = (project in file("slotbook-api-api"))
+lazy val `api` = (project in file("api"))
   .settings(
     libraryDependencies ++= Seq(
       lagomScaladslApi
     )
   )
 
-lazy val `slotbook-api-impl` = (project in file("slotbook-api-impl"))
+lazy val `impl` = (project in file("impl"))
   .enablePlugins(LagomScala)
   .settings(
     libraryDependencies ++= Seq(
@@ -29,16 +29,16 @@ lazy val `slotbook-api-impl` = (project in file("slotbook-api-impl"))
     )
   )
   .settings(lagomForkedTestSettings: _*)
-  .dependsOn(`slotbook-api-api`)
+  .dependsOn(`api`)
 
-lazy val `slotbook-api-stream-api` = (project in file("slotbook-api-stream-api"))
+lazy val `stream-api` = (project in file("stream-api"))
   .settings(
     libraryDependencies ++= Seq(
       lagomScaladslApi
     )
   )
 
-lazy val `slotbook-api-stream-impl` = (project in file("slotbook-api-stream-impl"))
+lazy val `stream-impl` = (project in file("stream-impl"))
   .enablePlugins(LagomScala)
   .settings(
     libraryDependencies ++= Seq(
@@ -47,4 +47,4 @@ lazy val `slotbook-api-stream-impl` = (project in file("slotbook-api-stream-impl
       scalaTest
     )
   )
-  .dependsOn(`slotbook-api-stream-api`, `slotbook-api-api`)
+  .dependsOn(`stream-api`, `api`)
