@@ -1,4 +1,4 @@
-package me.slotbook.api.impl
+package me.slotbook.impl
 
 import akka.actor.ActorSystem
 import akka.testkit.TestKit

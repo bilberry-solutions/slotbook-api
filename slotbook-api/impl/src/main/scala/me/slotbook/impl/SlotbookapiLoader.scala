@@ -1,4 +1,4 @@
-package me.slotbook.api.impl
+package me.slotbook.impl
 
 import com.lightbend.lagom.scaladsl.api.ServiceLocator
 import com.lightbend.lagom.scaladsl.api.ServiceLocator.NoServiceLocator
@@ -6,9 +6,9 @@ import com.lightbend.lagom.scaladsl.persistence.cassandra.CassandraPersistenceCo
 import com.lightbend.lagom.scaladsl.server._
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import play.api.libs.ws.ahc.AhcWSComponents
-import me.slotbook.api.api.SlotbookapiService
 import com.lightbend.lagom.scaladsl.broker.kafka.LagomKafkaComponents
 import com.softwaremill.macwire._
+import me.slotbook.api.SlotbookapiService
 
 class SlotbookapiLoader extends LagomApplicationLoader {
 

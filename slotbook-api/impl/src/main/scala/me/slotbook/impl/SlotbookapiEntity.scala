@@ -1,4 +1,4 @@
-package me.slotbook.api.impl
+package me.slotbook.impl
 
 import java.time.LocalDateTime
 

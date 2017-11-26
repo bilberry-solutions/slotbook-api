@@ -5,8 +5,8 @@ import com.lightbend.lagom.scaladsl.server._
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import play.api.libs.ws.ahc.AhcWSComponents
 import me.slotbook.apistream.api.SlotbookapiStreamService
-import me.slotbook.api.api.SlotbookapiService
 import com.softwaremill.macwire._
+import me.slotbook.api.SlotbookapiService
 
 class SlotbookapiStreamLoader extends LagomApplicationLoader {
 

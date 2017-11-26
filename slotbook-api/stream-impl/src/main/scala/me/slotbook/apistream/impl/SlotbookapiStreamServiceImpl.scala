@@ -1,8 +1,8 @@
 package me.slotbook.apistream.impl
 
 import com.lightbend.lagom.scaladsl.api.ServiceCall
+import me.slotbook.api.SlotbookapiService
 import me.slotbook.apistream.api.SlotbookapiStreamService
-import me.slotbook.api.api.SlotbookapiService
 
 import scala.concurrent.Future
 

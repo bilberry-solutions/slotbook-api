@@ -1,11 +1,10 @@
-package me.slotbook.api.impl
+package me.slotbook.impl
 
-import me.slotbook.api.api
-import me.slotbook.api.api.{SlotbookapiService}
 import com.lightbend.lagom.scaladsl.api.ServiceCall
 import com.lightbend.lagom.scaladsl.api.broker.Topic
 import com.lightbend.lagom.scaladsl.broker.TopicProducer
 import com.lightbend.lagom.scaladsl.persistence.{EventStreamElement, PersistentEntityRegistry}
+import me.slotbook.api.SlotbookapiService
 
 /**
   * Implementation of the SlotbookapiService.
@@ -29,16 +28,16 @@ class SlotbookapiServiceImpl(persistentEntityRegistry: PersistentEntityRegistry)
   }
 
 
-  override def greetingsTopic(): Topic[api.GreetingMessageChanged] =
+  override def greetingsTopic(): Topic[me.slotbook.api.GreetingMessageChanged] =
     TopicProducer.singleStreamWithOffset {
       fromOffset =>
         persistentEntityRegistry.eventStream(SlotbookapiEvent.Tag, fromOffset)
           .map(ev => (convertEvent(ev), ev.offset))
     }
 
-  private def convertEvent(helloEvent: EventStreamElement[SlotbookapiEvent]): api.GreetingMessageChanged = {
+  private def convertEvent(helloEvent: EventStreamElement[SlotbookapiEvent]): me.slotbook.api.GreetingMessageChanged = {
     helloEvent.event match {
-      case GreetingMessageChanged(msg) => api.GreetingMessageChanged(helloEvent.entityId, msg)
+      case GreetingMessageChanged(msg) => me.slotbook.api.GreetingMessageChanged(helloEvent.entityId, msg)
     }
   }
 }

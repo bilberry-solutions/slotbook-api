@@ -1,4 +1,4 @@
-package me.slotbook.api.api
+package me.slotbook.api
 
 import akka.{Done, NotUsed}
 import com.lightbend.lagom.scaladsl.api.broker.Topic

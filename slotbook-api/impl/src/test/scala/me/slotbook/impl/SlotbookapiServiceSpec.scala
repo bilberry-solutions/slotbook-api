@@ -1,9 +1,9 @@
-package me.slotbook.api.impl
+package me.slotbook.impl
 
 import com.lightbend.lagom.scaladsl.server.LocalServiceLocator
 import com.lightbend.lagom.scaladsl.testkit.ServiceTest
+import me.slotbook.api.{GreetingMessage, SlotbookapiService}
 import org.scalatest.{AsyncWordSpec, BeforeAndAfterAll, Matchers}
-import me.slotbook.api.api._
 
 class SlotbookapiServiceSpec extends AsyncWordSpec with Matchers with BeforeAndAfterAll {
 
@@ -18,7 +18,7 @@ class SlotbookapiServiceSpec extends AsyncWordSpec with Matchers with BeforeAndA
 
   override protected def afterAll() = server.stop()
 
-  "slotbook-api service" should {
+  "api service" should {
 
     "say hello" in {
       client.hello("Alice").invoke().map { answer =>
