@@ -1,18 +1,15 @@
 language: scala
 sudo: false
-jdk: oraclejdk8
-env:
-  matrix:
-    # Test with the defaults
-    - SCRIPT="sbt new file://$(pwd) --name=hello && cd hello && sbt test"
-    # Test with custom name/organization to ensure templating is done correctly
-    - SCRIPT="sbt new file://$(pwd) --name=smello --organization=org.eggsample && cd smello && sbt test"
-script: eval $SCRIPT
+jdk:
+  - oraclejdk8
+script:
+  - sbt +test
 cache:
   directories:
     - $HOME/.ivy2/cache
-    - $HOME/.sbt/boot/scala*
 before_cache:
+  # Ensure changes to the cache aren't persisted
+  - rm -rf $HOME/.ivy2/cache/sample.chirper/*
   # Delete all ivydata files since ivy touches them on each build
   - find $HOME/.ivy2/cache -name "ivydata-*.properties" | xargs rm
 notifications:
