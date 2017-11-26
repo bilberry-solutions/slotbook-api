@@ -1,5 +1,3 @@
 # slotbook-api
 
-*Run*
-1. cd slotbook-api
-2. sbt runAll
+An implementation of the API for [slotbook.me](http://slotbook.me)
