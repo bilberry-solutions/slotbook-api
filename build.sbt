@@ -8,7 +8,7 @@ val macwire = "com.softwaremill.macwire" %% "macros" % "2.2.5" % "provided"
 val scalaTest = "org.scalatest" %% "scalatest" % "3.0.1" % Test
 
 lazy val `slotbook` = (project in file("."))
-  .aggregate(`api`, `impl`, `stream-api`, `stream-impl`)
+  .aggregate(`api`, `impl`, `company-api`, `company-impl`, `stream-api`, `stream-impl`)
 
 lazy val `api` = (project in file("api"))
   .settings(
@@ -16,6 +16,26 @@ lazy val `api` = (project in file("api"))
       lagomScaladslApi
     )
   )
+
+lazy val `company-api` = (project in file("company-api"))
+  .settings(
+    libraryDependencies ++= Seq(
+      lagomScaladslApi
+    )
+  )
+
+lazy val `company-impl` = (project in file("company-impl"))
+  .enablePlugins(LagomScala)
+  .settings(
+    libraryDependencies ++= Seq(
+      lagomScaladslPersistenceCassandra,
+      lagomScaladslTestKit,
+      macwire,
+      scalaTest
+    )
+  )
+  .settings(lagomForkedTestSettings: _*)
+  .dependsOn(`company-api`)
 
 lazy val `impl` = (project in file("impl"))
   .enablePlugins(LagomScala)
