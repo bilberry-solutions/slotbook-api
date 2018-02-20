@@ -8,14 +8,8 @@ val macwire = "com.softwaremill.macwire" %% "macros" % "2.2.5" % "provided"
 val scalaTest = "org.scalatest" %% "scalatest" % "3.0.1" % Test
 
 lazy val `slotbook` = (project in file("."))
-  .aggregate(`api`, `impl`, `company-api`, `company-impl`, `stream-api`, `stream-impl`)
-
-lazy val `api` = (project in file("api"))
-  .settings(
-    libraryDependencies ++= Seq(
-      lagomScaladslApi
-    )
-  )
+  .aggregate(`company-api`, `company-impl`)
+  //.enablePlugins(JavaAppPackaging)
 
 lazy val `company-api` = (project in file("company-api"))
   .settings(
@@ -37,34 +31,5 @@ lazy val `company-impl` = (project in file("company-impl"))
   .settings(lagomForkedTestSettings: _*)
   .dependsOn(`company-api`)
 
-lazy val `impl` = (project in file("impl"))
-  .enablePlugins(LagomScala)
-  .settings(
-    libraryDependencies ++= Seq(
-      lagomScaladslPersistenceCassandra,
-      lagomScaladslKafkaBroker,
-      lagomScaladslTestKit,
-      macwire,
-      scalaTest
-    )
-  )
-  .settings(lagomForkedTestSettings: _*)
-  .dependsOn(`api`)
-
-lazy val `stream-api` = (project in file("stream-api"))
-  .settings(
-    libraryDependencies ++= Seq(
-      lagomScaladslApi
-    )
-  )
-
-lazy val `stream-impl` = (project in file("stream-impl"))
-  .enablePlugins(LagomScala)
-  .settings(
-    libraryDependencies ++= Seq(
-      lagomScaladslTestKit,
-      macwire,
-      scalaTest
-    )
-  )
-  .dependsOn(`stream-api`, `api`)
+lagomServiceLocatorPort in ThisBuild := 10000
+lagomServiceGatewayPort in ThisBuild := 11000

@@ -8,8 +8,8 @@ import akka.stream.Materializer
 import com.lightbend.lagom.scaladsl.api.ServiceCall
 import com.lightbend.lagom.scaladsl.api.transport.NotFound
 import com.lightbend.lagom.scaladsl.persistence.PersistentEntityRegistry
-import me.slotbook.api.CompanyService
-import me.slotbook.api.model.{Company, CompanyContent}
+import me.slotbook.company.api.CompanyService
+import me.slotbook.company.api.model.Company
 
 import scala.concurrent.ExecutionContext
 
@@ -22,12 +22,5 @@ class CompanyServiceImpl(persistentEntityRegistry: PersistentEntityRegistry, sys
       case Some(content) => Company(id, content.name)
       case None => throw NotFound(s"Company with id $id")
     }
-  }
-
-  override def addCompany(): ServiceCall[CompanyContent, Company] = ServiceCall { companyContent =>
-    val id = UUID.randomUUID()
-
-    persistentEntityRegistry.refFor[CompanyEntity](id.toString)
-      .ask(AddCompany(companyContent)).map(_ => Company(id, companyContent.name))
   }
 }

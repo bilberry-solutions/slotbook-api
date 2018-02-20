@@ -6,7 +6,7 @@ import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import com.lightbend.lagom.scaladsl.persistence.cassandra.CassandraPersistenceComponents
 import com.lightbend.lagom.scaladsl.server.{LagomApplication, LagomApplicationContext, LagomApplicationLoader, LagomServer}
 import com.softwaremill.macwire._
-import me.slotbook.api.CompanyService
+import me.slotbook.company.api.CompanyService
 import play.api.libs.ws.ahc.AhcWSComponents
 
 
@@ -27,7 +27,6 @@ abstract class CompanyApplication(context: LagomApplicationContext) extends Lago
   with AhcWSComponents with CassandraPersistenceComponents {
 
   override lazy val lagomServer: LagomServer = serverFor[CompanyService](wire[CompanyServiceImpl])
-
   override lazy val jsonSerializerRegistry = CompanySerializerRegistry
 
   persistentEntityRegistry.register(wire[CompanyEntity])

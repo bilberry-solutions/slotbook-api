@@ -1,6 +1,6 @@
-package me.slotbook.api.repository
+package me.slotbook.company.api.repository
 
-import me.slotbook.api.model.Company
+import me.slotbook.company.api.model.Company
 
 import scala.concurrent.Future
 

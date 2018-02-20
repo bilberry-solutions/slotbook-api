@@ -1,6 +1,7 @@
-package me.slotbook.api.model
+package me.slotbook.company.api.model
 
 import java.util.UUID
+
 import play.api.libs.json.{Format, Json}
 
 case class Company(id: UUID, name: String)
@@ -12,6 +13,5 @@ object Company {
 case class CompanyContent(name: String)
 
 object CompanyContent {
-  implicit def format: Format[CompanyContent] = Json.format[CompanyContent]
-
+  implicit val format: Format[CompanyContent] = Json.format[CompanyContent]
 }
