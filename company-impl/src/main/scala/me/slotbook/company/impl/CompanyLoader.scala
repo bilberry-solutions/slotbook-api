@@ -1,4 +1,4 @@
-package me.slotbook.impl
+package me.slotbook.company.impl
 
 import com.lightbend.lagom.scaladsl.api.ServiceLocator
 import com.lightbend.lagom.scaladsl.api.ServiceLocator.NoServiceLocator

@@ -1,4 +1,4 @@
-package me.slotbook.impl
+package me.slotbook.company.impl
 
 import java.time.LocalDateTime
 
@@ -16,10 +16,10 @@ class CompanyEntity extends PersistentEntity {
   override type Event = CompanyEvent
   override type State = CompanyState
 
-  override def behavior: Behavior = Actions().onCommand[AddCompany, Done] {
-    case (AddCompany(companyContent), ctx, state) => ctx.thenPersist(CompanyChanged(companyContent)) { _ => Done }
-  }.onReadOnlyCommand[GetCompany.type, Option[CompanyContent]] {
-    case (GetCompany, ctx, state) => ctx.reply(state.company)
+  override def behavior: Behavior = Actions().onCommand[AddCompanyCommand, Done] {
+    case (AddCompanyCommand(companyContent), ctx, state) => ctx.thenPersist(CompanyChanged(companyContent)) { _ => Done }
+  }.onReadOnlyCommand[GetCompanyCommand.type, Option[CompanyContent]] {
+    case (GetCompanyCommand, ctx, state) => ctx.reply(state.company)
   }.onEvent {
     case (CompanyChanged(companyContent), state) => CompanyState(Some(companyContent), LocalDateTime.now.toString)
   }
@@ -40,12 +40,12 @@ object CompanyState {
 // Commands declaration
 sealed trait CompanyCommand
 
-case class AddCompany(company: CompanyContent) extends CompanyCommand with ReplyType[Done]
+case class AddCompanyCommand(company: CompanyContent) extends CompanyCommand with ReplyType[Done]
 
-case object GetCompany extends CompanyCommand with ReplyType[Option[CompanyContent]]
+case object GetCompanyCommand extends CompanyCommand with ReplyType[Option[CompanyContent]]
 
-object AddCompany {
-  implicit val format: Format[AddCompany] = Json.format[AddCompany]
+object AddCompanyCommand {
+  implicit val format: Format[AddCompanyCommand] = Json.format[AddCompanyCommand]
 }
 
 // Events declaration
@@ -66,10 +66,11 @@ object CompanyChanged {
 
 object CompanySerializerRegistry extends JsonSerializerRegistry {
   override def serializers: Seq[JsonSerializer[_]] = Seq(
-    JsonSerializer[AddCompany],
+    JsonSerializer[AddCompanyCommand],
     JsonSerializer[CompanyContent],
     JsonSerializer[CompanyChanged],
     JsonSerializer[Company]
   )
 }
+
 
