@@ -1,12 +1,12 @@
 package me.slotbook.company.impl
 
-import java.time.LocalDateTime
 
 import akka.Done
 import com.lightbend.lagom.scaladsl.persistence.PersistentEntity.ReplyType
 import com.lightbend.lagom.scaladsl.persistence.{AggregateEvent, AggregateEventTag, PersistentEntity}
 import com.lightbend.lagom.scaladsl.playjson.{JsonSerializer, JsonSerializerRegistry}
 import me.slotbook.company.api.model.{Company, CompanyContent}
+import org.joda.time.LocalDateTime
 import play.api.libs.json.{Format, Json}
 
 import scala.collection.immutable.Seq
